@@ -1,0 +1,381 @@
+@font-face {
+    font-family: 'HelveticaLight';
+    src: url('fonts/helveticaneuecyr-light-webfont.eot');
+    src: url('fonts/helveticaneuecyr-light-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/helveticaneuecyr-light-webfont.svg#helveticaneuecyrlight') format('svg'),
+         url('fonts/helveticaneuecyr-light-webfont.woff') format('woff'),
+         url('fonts/helveticaneuecyr-light-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'HeliosBlack';
+    src: url('fonts/HeliosBlack.eot');
+    src: url('fonts/HeliosBlack.eot?#iefix') format('embedded-opentype'),
+         url('fonts/HeliosBlack.svg#HeliosBlack') format('svg'),
+         url('fonts/HeliosBlack.woff') format('woff'),
+         url('fonts/HeliosBlack.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'pf_din';
+    src: url('fonts/pfdintextcomppro-regular-webfont.eot');
+    src: url('fonts/pfdintextcomppro-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/pfdintextcomppro-regular-webfont.svg#pf_din_text_comp_proregular') format('svg'),
+         url('fonts/pfdintextcomppro-regular-webfont.woff') format('woff'),
+         url('fonts/pfdintextcomppro-regular-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+body {
+	background: #fff;
+	font-family: Helvetica, Calibri, Tahoma;
+	font-size: 16px;
+	color: #000;
+}
+
+#photo {
+	position: absolute;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	background: url('clock.jpg') -5px -220px no-repeat;
+	/*opacity: 0.4;*/
+}
+
+
+/* Container */
+#clock {
+	position: relative;
+	z-index: 200;
+}
+
+/* Main body of clock */
+#body {
+	position: relative;
+	z-index: 10;
+	margin: 0 auto;
+	margin-top: 300px;
+	width: 678px;
+	height: 184px;
+	background: #25262b;
+	/*background: #ddd;*/
+	border: 6px solid #fff;
+	border-radius: 20px;
+	box-shadow: 0px 14px 20px 1px rgba(0, 0, 0, 0.2), inset 0px 0px 15px 1px rgba(0, 0, 0, 1);
+}
+
+/* Glass frame */
+#body:after {
+	content: " ";
+	position: absolute;
+	width: 672px;
+	height: 178px;
+	top: 3px;
+	left: 3px;
+	border-radius: 12px;
+	box-shadow: inset 0px 0px 5px 1px rgba(255, 255, 255, 0.4);
+}
+
+/* Glass reflection */
+#body:before {
+	display: block;
+	content: " ";
+	position: absolute;
+	z-index: 100;
+	width: 672px;
+	height: 100px;
+	top: 3px;
+	left: 3px;
+	background: rgba(255, 255, 255, 0.1);
+	border-radius: 6px 6px 0px 900px/90px;
+}
+
+#displays {
+	margin: 15px auto;
+	width: 648px;
+	height: 152px;
+	border-radius: 6px;
+	box-shadow: inset 5px 5px 8px 1px rgba(0, 0, 0, 0.3), inset -5px -5px 8px 1px rgba(200, 200, 200, 0.1);
+}
+
+#displays_alarm {
+	margin-left: 25px;
+	width: 56px;
+}
+
+#displays_time {
+	margin-left: 30px;
+	width: 170px;
+}
+
+#displays_time .digit {
+	position: relative;
+	display: inline-block;
+    font-family: 'pf_din';
+	font-size: 85px;
+	color: #fff;
+	margin: 18px 0px 0px 5px;
+	width: 76px;
+	height: 78px;
+	overflow: hidden;
+	border-radius: 4px;
+}
+
+#displays_time .digit:before,
+#displays_time .digit:after {
+	position: absolute;
+	top: 13px;
+	z-index: 13;
+	content: " ";
+	width: 3px;
+	height: 50px;
+	background: #25262b;
+	border: 1px solid rgba(0, 0, 0, 0.7);
+	box-shadow: inset 0px 5px 5px 0px rgba(0, 0, 0, 0.2), inset 0px -5px 5px 0px rgba(0, 0, 0, 0.2), 0px 0px 2px 0px rgba(0, 0, 0, 0.5);
+}
+
+#displays_time .digit:before {
+	left: 0px;
+	border-left: none;
+}
+
+#displays_time .digit:after {
+	right: 0px;
+	border-right: none;
+}
+
+#displays_time .digit .part {
+	/*display: inline-block;*/
+	position: absolute;
+	width: 100%;
+	height: 78px;
+	/*background: #25262b;*/
+	overflow: hidden;
+	margin: 0;
+	margin-bottom: 2px;
+	text-align: center;
+	line-height: 83px;	
+}
+
+#displays_time .digit .part.upper {
+	border-radius: 4px;
+	/*vertical-align: top;*/
+	top: 0px;
+	left: 0px;
+	-webkit-transform-style: preserve-3d;
+}
+
+
+#displays_time .digit .part.lower {
+	border-radius: 4px;
+	/*vertical-align: bottom;*/
+	padding-top: 0px;
+	top: 0px;
+	bottom: 0px;
+	-webkit-transform-style: preserve-3d;
+}
+
+#displays_time .digit .part.lower.next {
+	z-index: 10;
+	transform: rotateX(-90deg);
+}
+
+#displays_time .digit .part.lower .container {
+	position: absolute;
+	bottom: -6px;
+	left: 0px;
+	width: 100%;
+}
+
+#displays_time .digit .part .flipper {
+	/*display: inline-block;*/
+	position: absolute;
+	width: 100%;
+	height: 38px;
+	background: #25262b;
+	overflow: hidden;
+	margin: 0;
+	margin-bottom: 2px;
+	text-align: center;
+	line-height: 83px;	
+}
+
+#displays_time .digit .part.upper .flipper {
+	top: 0px;
+	left: 0px;
+}
+
+#displays_time .digit .part.lower .flipper {
+	bottom: 0px;
+	left: 0px;
+	margin-bottom: 0px;
+}
+
+#displays_radio {
+	position: relative;
+	margin-left: 25px;
+	width: 318px;
+	color: #fff;
+}
+
+#displays_radio:after {
+	content: " ";
+	position: absolute;
+	bottom: 16px;
+	left: 24px;
+	width: 0px;
+	height: 0px;
+	box-shadow: 0px 0px 1px 2px #fff,
+				17px 0px 1px 2px #fff,
+				34px 0px 1px 2px #fff,
+				51px 0px 1px 2px #fff,
+				68px 0px 1px 2px #fff,
+
+				85px 0px 1px 2px #fff,
+				102px 0px 1px 2px #fff,
+				119px 0px 1px 2px #fff,
+				136px 0px 1px 2px #fff,
+				153px 0px 1px 2px #fff,
+
+				170px 0px 1px 2px #fff,
+				187px 0px 1px 2px #fff,
+				204px 0px 1px 2px #fff,
+				221px 0px 1px 2px #fff,
+				238px 0px 1px 2px #fff,
+
+				255px 0px 1px 2px #fff,
+				272px 0px 1px 2px #fff;
+}
+
+#displays_radio:before {
+	content: "Panasonic";
+	font-family: 'HeliosBlack';
+	/*font-weight: bold;*/
+	font-size: 18px;
+	position: absolute;
+	top: 15px;
+	right: 18px;
+}
+
+#displays_radio #hole {
+	position: absolute;
+	bottom: 23px;
+	left: 56px;
+	z-index: 2;
+	width: 18px;
+	height: 30px;
+	background: #d6ac75;
+	border-radius: 10px;
+	box-shadow: inset 0px 0px 12px 2px rgba(36, 14, 3, 1);
+	opacity: 0.4;
+}
+
+#displays_radio #indicator {
+	position: absolute;
+	z-index: 10;
+	bottom: 0px;
+	left: 110px;
+	width: 6px;
+	height: 75px;
+	background: #bf3715;
+	border-radius: 2px 2px 0px 0px;
+	box-shadow: inset -2px 1px 2px 0px rgba(0, 0, 0, 0.6);
+}
+
+.bands {
+	position: absolute;
+	top: 45px;
+	left: 22px;
+	font-family: 'HelveticaLight';
+	font-size: 14px;
+	width: 277px;
+}
+
+.bands.am {
+	margin-top: 24px;
+}
+
+.band_name {
+	display: inline-block;
+	letter-spacing: 2px;
+	width: 20px;
+	margin-right: 44px;
+}
+
+.bands.am .band_name {
+	margin-right: 47px;
+}
+
+.bands.fm .bw1 { padding-right: 4px; }
+.bands.fm .bw2 { padding-right: 7px; }
+.bands.fm .bw3 { padding-right: 4px; }
+.bands.fm .bw4 { padding-right: 2px; }
+.bands.fm .bw5 { padding-right: 2px; }
+.bands.fm .bw6 { padding-right: 0px; }
+
+
+.bands.am .bw1 { padding-right: 10px; }
+.bands.am .bw2 { padding-right: 7px; }
+.bands.am .bw3 { padding-right: 3px; }
+.bands.am .bw4 { padding-right: 3px; }
+.bands.am .bw5 { padding-right: 0px; }
+.bands.am .bw6 { padding-right: 0px; }
+
+.bands .value {
+	float: right;
+}
+
+.bands .value .small {
+	font-size: 10px;
+	padding-right: 1px;
+}
+
+.display {
+	height: 114px;
+	background: rgba(0, 0, 0, 0.4);
+	float: left;
+	margin-top: 20px;
+	border-radius: 4px;	
+	/*box-shadow: inset 10px 10px 8px 1px rgba(0, 0, 0, 0.5), inset -5px -10px 8px 1px rgba(200, 200, 200, 0.1);*/
+	box-shadow: inset 0px 0px 20px 10px rgba(0, 0, 0, 0.8);
+	overflow: hidden;
+}
+
+/* Bottom of the body */
+#post {
+	position: relative;
+	margin: 0 auto;
+	margin-top: -196px;
+	display: block;
+	width: 690px;
+	height: 205px;
+	border-radius: 25px/30px;	
+	background: #f5f5f5;
+	
+}
+
+/* Post stand */
+#post:before {
+	content: " ";
+	position: absolute;
+	bottom: -38px;
+	left: 85px;
+	z-index: 2;
+	margin: 0 auto;
+	width: 500px;
+	height: 0px;
+	border-top: 45px solid #fff;
+	border-left: 10px solid transparent;
+	border-right: 10px solid transparent;
+	border-radius: 3px 3px 20px 20px;
+	/*background: #fff;*/
+	/*box-shadow: 0px -2px 20px 0px rgba(0, 0, 0, 0.2);	*/
+}

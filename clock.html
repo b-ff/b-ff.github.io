@@ -1,0 +1,68 @@
+<!DOCTYPE html> 
+<html>
+  <head>
+    <title>Panasonic Flip Clock</title>
+
+    <link rel="stylesheet" type="text/css" href="clock.css">
+  </head>
+
+  <body>
+
+    <div id="photo"></div>
+
+    <div id="clock">
+      <div id="body">
+        <div id="displays">
+          <div id="displays_alarm" class="display"></div>
+
+          <div id="displays_time" class="display">
+            <div id="hours" class="time digit flip">
+              <div class="part lower"><div class="flipper"><div class="container">10</div></div></div>
+              <div class="part upper"><div class="flipper"><div class="container">10</div></div></div>
+            </div>
+            <div id="minutes" class="time digit flip">
+              <div class="part lower"><div class="flipper"><div class="container">13</div></div></div>
+              <div class="part upper"><div class="flipper"><div class="container">13</div></div></div>
+            </div>
+          </div>
+
+          <div id="displays_radio" class="display">
+
+            <div id="hole"></div>
+
+            <div id="indicator"></div>
+
+            <div class="bands fm">
+              <span class="band_name">FM</span>
+
+              <span class="bandwidth bw1">88</span>
+              <span class="bandwidth bw2">92</span>
+              <span class="bandwidth bw3">96</span>
+              <span class="bandwidth bw4">100</span>
+              <span class="bandwidth bw5">104</span>
+              <span class="bandwidth bw6">108</span>
+
+              <span class="bandwidth value">MHz</span>
+            </div>
+            <div class="bands am">
+              <span class="band_name">AM</span>
+
+              <span class="bandwidth bw1">53</span>
+              <span class="bandwidth bw2">65</span>
+              <span class="bandwidth bw3">80</span>
+              <span class="bandwidth bw4">100</span>
+              <span class="bandwidth bw5">130</span>
+              <span class="bandwidth bw6">160</span>
+
+              <span class="bandwidth value"><span class="small">x10</span>kHz</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="post"></div>
+    </div>
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script type="text/javascript" src="clock.js"></script>
+  </body>
+</html>
