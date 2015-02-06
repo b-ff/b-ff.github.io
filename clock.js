@@ -128,10 +128,20 @@
 		if ($("#hours").find(".container:first").text() != time[0]) { this.flipHours(time[0]); }
 		if ($("#minutes").find(".container:first").text() != time[1]) { this.flipMinutes(time[1]); }
 	}
+
+
+	Alarm = function() {
+		this.main_alarm = document.getElementById('main_alarm');
+		this.main_alarm.currentTime = 101; // 1m41s
+	}
 	
 	$(document).ready(function() {
 
-		FlipClock = new FlipClock();
+		Panasonic = {};
+
+		Panasonic.clock = new FlipClock();
+		Panasonic.alarm = new Alarm();
+	
 
 	});
 	
