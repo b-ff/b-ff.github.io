@@ -505,19 +505,22 @@ body {
 
 
 
-
-
+.cylinder {
+  transform-style: preserve-3d;
+  transform: rotateX(-92deg);
+}	
 
 .alarm.display.cylinder {
   margin: 0px 4px 0px;
   width: 48px;
   height: 114px;
-  transform-style: preserve-3d;
-  transform: rotateX(-92deg);
 }
 
 .edge {
   position: absolute;
+}
+
+.alarm.display.cylinder .edge {
   top: 50px;
   width: 32px;
   padding-right: 16px;
@@ -532,7 +535,7 @@ body {
   text-align: center;
 }
 
-.edge:after {
+.alarm.display.cylinder .edge:after {
 	position: absolute;
 	right: 0px;
 	top: 6px;
@@ -549,38 +552,76 @@ body {
 	font-weight: bold;
 }
 
-.edge.am:after {
+.alarm.display.cylinder .edge.am:after {
 	background: #fff;
 	color: #25262b;
 	border-top: none;
 }
 
-.edge-1  { transform: rotateX(0deg) translateZ(53px); }
-.edge-2  { transform: rotateX(15deg) translateZ(53px); }
-.edge-3  { transform: rotateX(30deg) translateZ(53px); }
-.edge-4  { transform: rotateX(45deg) translateZ(53px); }
-.edge-5  { transform: rotateX(60deg) translateZ(53px); }
-.edge-6  { transform: rotateX(75deg) translateZ(53px); }
-.edge-7  { transform: rotateX(90deg) translateZ(53px); }
-.edge-8  { transform: rotateX(105deg) translateZ(53px); }
-.edge-9  { transform: rotateX(120deg) translateZ(53px); }
-.edge-10 { transform: rotateX(135deg) translateZ(53px); }
-.edge-11 { transform: rotateX(150deg) translateZ(53px); }
-.edge-12 { transform: rotateX(165deg) translateZ(53px); }
-.edge-13 { transform: rotateX(180deg) translateZ(53px); }
-.edge-14 { transform: rotateX(195deg) translateZ(53px); }
-.edge-15 { transform: rotateX(210deg) translateZ(53px); }
-.edge-16 { transform: rotateX(225deg) translateZ(53px); }
-.edge-17 { transform: rotateX(240deg) translateZ(53px); }
-.edge-18 { transform: rotateX(255deg) translateZ(53px); }
-.edge-19 { transform: rotateX(270deg) translateZ(53px); }
-.edge-20 { transform: rotateX(285deg) translateZ(53px); }
-.edge-21 { transform: rotateX(300deg) translateZ(53px); }
-.edge-22 { transform: rotateX(315deg) translateZ(53px); }
-.edge-23 { transform: rotateX(330deg) translateZ(53px); }
-.edge-24 { transform: rotateX(345deg) translateZ(53px); }
+.cylinder-24-edges .edge-1  { transform: rotateX(0deg) translateZ(53px); }
+.cylinder-24-edges .edge-2  { transform: rotateX(15deg) translateZ(53px); }
+.cylinder-24-edges .edge-3  { transform: rotateX(30deg) translateZ(53px); }
+.cylinder-24-edges .edge-4  { transform: rotateX(45deg) translateZ(53px); }
+.cylinder-24-edges .edge-5  { transform: rotateX(60deg) translateZ(53px); }
+.cylinder-24-edges .edge-6  { transform: rotateX(75deg) translateZ(53px); }
+.cylinder-24-edges .edge-7  { transform: rotateX(90deg) translateZ(53px); }
+.cylinder-24-edges .edge-8  { transform: rotateX(105deg) translateZ(53px); }
+.cylinder-24-edges .edge-9  { transform: rotateX(120deg) translateZ(53px); }
+.cylinder-24-edges .edge-10 { transform: rotateX(135deg) translateZ(53px); }
+.cylinder-24-edges .edge-11 { transform: rotateX(150deg) translateZ(53px); }
+.cylinder-24-edges .edge-12 { transform: rotateX(165deg) translateZ(53px); }
+.cylinder-24-edges .edge-13 { transform: rotateX(180deg) translateZ(53px); }
+.cylinder-24-edges .edge-14 { transform: rotateX(195deg) translateZ(53px); }
+.cylinder-24-edges .edge-15 { transform: rotateX(210deg) translateZ(53px); }
+.cylinder-24-edges .edge-16 { transform: rotateX(225deg) translateZ(53px); }
+.cylinder-24-edges .edge-17 { transform: rotateX(240deg) translateZ(53px); }
+.cylinder-24-edges .edge-18 { transform: rotateX(255deg) translateZ(53px); }
+.cylinder-24-edges .edge-19 { transform: rotateX(270deg) translateZ(53px); }
+.cylinder-24-edges .edge-20 { transform: rotateX(285deg) translateZ(53px); }
+.cylinder-24-edges .edge-21 { transform: rotateX(300deg) translateZ(53px); }
+.cylinder-24-edges .edge-22 { transform: rotateX(315deg) translateZ(53px); }
+.cylinder-24-edges .edge-23 { transform: rotateX(330deg) translateZ(53px); }
+.cylinder-24-edges .edge-24 { transform: rotateX(345deg) translateZ(53px); }
 
+#clock .wave.set.cylinder,
+#clock .alarm.set.cylinder {
+	width: 9px;
+	height: 114px;
+	top: 50%;
+	margin-top: -57px;
+}
 
+#clock .alarm.set.cylinder {
+	position: absolute;
+	left: -15px;
+}
+
+#clock .wave.set.cylinder {
+	position: absolute;
+	right: -15px;	
+}
+
+#clock .wave.set.cylinder .edge,
+#clock .alarm.set.cylinder .edge {
+	top: 50px;
+	width: 9px;
+	height: 15px;
+	background-color: #f0f0f0;
+	color: #ccc;
+	font-size: 14px;
+	line-height: 7px;
+	vertical-align: center;
+	text-align: center;
+}
+
+#clock .wave.set.cylinder .edge:before,
+#clock .wave.set.cylinder .edge:after,
+#clock .alarm.set.cylinder .edge:before,
+#clock .alarm.set.cylinder .edge:after {
+	display: block;
+	width: 10px;
+	content: "=";
+}
 
 
 

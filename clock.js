@@ -75,6 +75,10 @@
 		$(digitID).find(".part").filter(":gt(1)").addClass("prev");
 		$(digitID).find(".part.next").find(".container").text(value);
 
+		$(digitID).find(".upper.next").css("opacity", 0.5).stop().animate({
+			opacity: 1
+		}, 10);
+
 		this.flipPart(digitID, '.upper.prev', 90).then($.proxy(function() {
 			// ...
 			this.flipPart(digitID, '.lower.next', 0).then($.proxy(function() {
@@ -82,6 +86,11 @@
 				$(digitID).find(".part.prev").remove();
 				$(digitID).find(".part.next").removeClass("next");
 			}, this));
+
+			$(digitID).find(".lower.prev").stop().animate({
+				opacity: 0.5
+			}, 10);	
+
 		}, this));
 	}	
 
