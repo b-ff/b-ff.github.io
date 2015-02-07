@@ -587,16 +587,70 @@ body {
 #clock .alarm.set.cylinder {
 	width: 9px;
 	height: 114px;
-	top: 50%;
-	margin-top: -57px;
 }
 
-#clock .alarm.set.cylinder {
+#clock .knob.alarm,
+#clock .knob.radio {
+	top: 50%;
+	margin-top: -57px;	
+}
+
+#clock .knob.alarm:before,
+#clock .knob.radio:before {
+	position: absolute;
+	top: 50%;
+	margin-top: -20px;
+	display: block;
+	content: " ";
+	width: 20px;
+	height: 40px;
+}
+
+#clock .knob.alarm:after,
+#clock .knob.radio:after {
+	position: absolute;
+	top: 50%;
+	margin-top: -53px;
+	display: block;
+	content: " ";
+	width: 8px;
+	height: 106px;
+	background-color: #eee;
+}
+
+#clock .knob.alarm:before {
+	left: -27px;
+	border-top-left-radius: 50px 12px;
+	border-bottom-left-radius: 50px 12px;
+	background: linear-gradient(to left, #ddd, #fff);	
+}
+
+#clock .knob.radio:before {
+	right: -27px;
+	border-top-right-radius: 50px 12px;
+	border-bottom-right-radius: 50px 12px;
+	background: linear-gradient(to right, #ddd, #fff);	
+}
+
+#clock .knob.alarm:after {
+	left: -8px;
+	border-top-left-radius: 90px 1150px;
+	border-bottom-left-radius: 90px 1150px;
+}
+
+#clock .knob.radio:after {
+	right: -8px;
+	border-top-right-radius: 90px 1150px;
+	border-bottom-right-radius: 90px 1150px;
+}
+
+
+#clock .knob.alarm {
 	position: absolute;
 	left: -15px;
 }
 
-#clock .wave.set.cylinder {
+#clock .knob.radio {
 	position: absolute;
 	right: -15px;	
 }
