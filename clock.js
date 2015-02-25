@@ -122,6 +122,8 @@
 		this.flipHours(h);
 		this.flipMinutes(m);
 		// this.log("FlipClock: set time to "+h+":"+m);
+
+		this.triggerEvent("fliptime");
 	}
 
 	FlipClock.prototype.refreshClock = function() {
@@ -134,25 +136,159 @@
 
 		var time = this.getTimeString().split(':');
 
-		if ($("#hours").find(".container:first").text() != time[0]) { this.flipHours(time[0]); }
-		if ($("#minutes").find(".container:first").text() != time[1]) { this.flipMinutes(time[1]); }
+		var changed = false;
+
+		if ($("#hours").find(".container:first").text() != time[0]) { this.flipHours(time[0]); changed = true; }
+		if ($("#minutes").find(".container:first").text() != time[1]) { this.flipMinutes(time[1]); changed = true; }
+
+		if (changed) {
+			this.triggerEvent("timechange"); 
+		}
+	}
+
+	FlipClock.prototype.callbacks = [];
+
+	FlipClock.prototype.addCallback = function(eventName, func) {
+		if (typeof func == "function") {
+			this.callbacks.push({ event: eventName, callback: func });
+		}
+	}
+
+	FlipClock.prototype.triggerEvent = function(clockEventName) {
+		for (var i = 0; i < this.callbacks.length; i++) {
+			if (this.callbacks[i].event == clockEventName && typeof this.callbacks[i].callback == "function") {
+				this.callbacks[i].callback(this.getTimeObject(), this.getTimeString());
+			}
+		};
+		console.log('event triggered: '+ clockEventName);
 	}
 
 
 	Alarm = function() {
-		this.main_alarm = document.getElementById('main_alarm');
-		this.main_alarm.currentTime = 101; // 1m41s
+		this.alarm_sound = document.getElementById('main_alarm');
+		this.alarm_sound_time = 101; // 1m41s
+		this.alarm_sound.currentTime = this.alarm_sound_time;
+		this.cylinderID = 'alarm_cylinder';
+		this.cylinder = $('#'+this.cylinderID);
+		this.time = this.getTimeObject();
 	}
 
+	Alarm.prototype.check = function(timeObject, timeString) {
+		if (this.getTime() == timeString) {
+			this.play();
+		}
+
+		console.log('checking: ' + this.getTime() + ' == ' + timeString + ' ? ' + (this.getTime() == timeString));
+	}
+
+	Alarm.prototype.play = function() {
+		if (typeof this.alarm_sound.play == "function") {
+			this.alarm_sound.play();
+		}
+	}
+
+	Alarm.prototype.timeInterval = 20; // minutes
+
+	Alarm.prototype.increaseTime = function() {
+		var time = this.time;
+
+		time.minutes += this.timeInterval;
+
+		if (time.minutes >= 60) {
+			time.minutes -= 60;
+			time.hours++;
+		}
+
+		return this.changeTime(time);
+	}
+
+	Alarm.prototype.decreaseTime = function() {
+		var time = this.time;
+
+		time.minutes -= this.timeInterval;
+
+		if (time.minutes < 0) {
+			time.minutes += 60;
+			time.hours--;
+		}
+
+		return this.changeTime(time);
+	}
+
+	Alarm.prototype.changeTime = function(timeObject) {
+		var hourDegree = 360 / 24;
+
+		var newDegree = hourDegree * timeObject.hours - hourDegree;
+			newDegree += (timeObject.minutes / 60) * hourDegree;
+			newDegree = 0 - newDegree;
+
+		this.setDegree(newDegree);
+		this.time = timeObject;
+
+		console.log(this.getTime());
+
+		return this.time;
+	}
+
+	Alarm.prototype.getTimeObject = function() {
+		var degree = getCurrentRotationFixed(this.cylinderID);
+		if (isNaN(degree)) { degree = 0; }
+		var hourDegree = 360 / 24;
+		var hours = Math.floor(((360 - degree) / hourDegree) + 1);
+		var minutes = Math.round(((((360 - degree) / hourDegree) + 1) - hours).toFixed(2) * 60);
+		// console.log(degree);
+		if (hours >= 24) { hours = 0; }
+		return { 
+			hours: hours,
+			minutes: minutes
+		};
+	}
+
+	Alarm.prototype.getTime = function() {
+		var time = this.getTimeObject();
+
+		if (time.minutes < 10) {
+			time.minutes = '0' + time.minutes;
+		}
+
+		return time.hours + ':' + time.minutes;
+	}
+
+	Alarm.prototype.setDegree = function(degree) {
+		this.cylinder.css('-webkit-transform', 'rotateX('+degree+'deg)');
+		this.cylinder.css('-khtml-transform', 'rotateX('+degree+'deg)');
+		this.cylinder.css('-moz-transform', 'rotateX('+degree+'deg)');
+		this.cylinder.css('-ms-transform', 'rotateX('+degree+'deg)');
+		this.cylinder.css('-o-transform', 'rotateX('+degree+'deg)');
+		this.cylinder.css('transform', 'rotateX('+degree+'deg)');
+	}
 	
 	$(document).ready(function() {
 
 		Panasonic = {};
 
-		Panasonic.clock = new FlipClock();
 		Panasonic.alarm = new Alarm();
-	
+		Panasonic.clock = new FlipClock();
+		Panasonic.clock.addCallback('timechange', $.proxy(Panasonic.alarm.check, Panasonic.alarm));
+		Panasonic.alarm.changeTime({ hours: 6, minutes: 0 });
 
+
+		$(document).on("keydown", function(e) {
+
+			if (e.keyCode >= 37 && e.keyCode <= 40) {
+
+				switch (e.keyCode) {
+					case 37: console.log('влево'); break;
+					case 38: Panasonic.alarm.increaseTime(); break;
+					case 39: console.log('вправо'); break;
+					case 40: Panasonic.alarm.decreaseTime(); break;
+				}
+				
+				e.preventDefault();
+			}
+
+			// console.log(e.keyCode);
+		});
 	});
 	
 })(jQuery);
@@ -169,15 +305,16 @@ function getCurrentRotation( elid ) {
        "fail...";
 
   if( tr !== "none") {
-    console.log('Matrix: ' + tr);
+    // console.log('Matrix: ' + tr);
 
     var values = tr.split('(')[1];
       values = values.split(')')[0];
       values = values.split(',');
-    var a = values[0];
-    var b = values[1];
-    var c = values[2];
-    var d = values[3];
+
+    var a = values[5];
+    var b = values[6];
+    var c = values[9];
+    var d = values[10];
 
     var scale = Math.sqrt(a*a + b*b);
 
@@ -199,8 +336,9 @@ function getCurrentRotation( elid ) {
   }
 
   // works!
-  console.log('Rotate: ' + angle + 'deg');
-  $('#results').append('<p>Rotate: ' + angle + 'deg</p>');
+  // console.log('Rotate: ' + angle + 'deg');
+
+  return angle;  
 }
 
 function getCurrentRotationFixed( elid ) {
@@ -214,15 +352,15 @@ function getCurrentRotationFixed( elid ) {
        "fail...";
 
   if( tr !== "none") {
-    console.log('Matrix: ' + tr);
+    // console.log('Matrix: ' + tr);
 
     var values = tr.split('(')[1];
       values = values.split(')')[0];
       values = values.split(',');
-    var a = values[0];
-    var b = values[1];
-    var c = values[2];
-    var d = values[3];
+    var a = values[5];
+    var b = values[6];
+    var c = values[9];
+    var d = values[10];
 
     var scale = Math.sqrt(a*a + b*b);
 
@@ -244,6 +382,8 @@ function getCurrentRotationFixed( elid ) {
   }
 
   // works!
-  console.log('Rotate: ' + angle + 'deg');
+  // console.log('Rotate: ' + angle + 'deg');
   // $('#results').append('<p>Rotate: ' + angle + 'deg</p>');
+
+  return angle;
 }
