@@ -172,6 +172,7 @@
 		this.cylinder = $('#'+this.cylinderID);
 		this.cylinderKnob = $(".alarm.set.cylinder");
 		this.time = this.getTimeObject();
+		this.isRinging = false;
 	}
 
 	Alarm.prototype.check = function(timeObject, timeString) {
@@ -185,6 +186,15 @@
 	Alarm.prototype.play = function() {
 		if (typeof this.alarm_sound.play == "function") {
 			this.alarm_sound.play();
+			this.isRinging = true;
+		}
+	}
+
+	Alarm.prototype.stop = function() {
+		if (typeof this.alarm_sound.pause == "function") {
+			this.alarm_sound.pause();
+			this.alarm_sound.currentTime = 101;
+			this.isRinging = false;
 		}
 	}
 
@@ -295,7 +305,11 @@
 				e.preventDefault();
 			}
 
-			// console.log(e.keyCode);
+			if (e.keyCode == 32 && Panasonic.alarm.isRinging) {
+				Panasonic.alarm.stop();
+			}
+
+			console.log(e.keyCode);
 		});
 	});
 	
