@@ -170,6 +170,7 @@
 		this.alarm_sound.currentTime = this.alarm_sound_time;
 		this.cylinderID = 'alarm_cylinder';
 		this.cylinder = $('#'+this.cylinderID);
+		this.cylinderKnob = $(".alarm.set.cylinder");
 		this.time = this.getTimeObject();
 	}
 
@@ -261,6 +262,13 @@
 		this.cylinder.css('-ms-transform', 'rotateX('+degree+'deg)');
 		this.cylinder.css('-o-transform', 'rotateX('+degree+'deg)');
 		this.cylinder.css('transform', 'rotateX('+degree+'deg)');
+
+		this.cylinderKnob.css('-webkit-transform', 'rotateX('+degree+'deg)');
+		this.cylinderKnob.css('-khtml-transform', 'rotateX('+degree+'deg)');
+		this.cylinderKnob.css('-moz-transform', 'rotateX('+degree+'deg)');
+		this.cylinderKnob.css('-ms-transform', 'rotateX('+degree+'deg)');
+		this.cylinderKnob.css('-o-transform', 'rotateX('+degree+'deg)');
+		this.cylinderKnob.css('transform', 'rotateX('+degree+'deg)');
 	}
 	
 	$(document).ready(function() {
